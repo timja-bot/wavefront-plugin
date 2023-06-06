@@ -46,7 +46,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.jvnet.hudson.test.JenkinsRule;
 
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
+import org.htmlunit.html.HtmlForm;
 
 import hudson.model.BooleanParameterDefinition;
 import hudson.model.Job;
@@ -80,8 +80,8 @@ public class WavefrontBuildListenerTest {
         port = mockedProxy.getValue();
 
         HtmlForm form = jenkinsRule.createWebClient().goTo("wavefront-plugin").getFormByName("config");
-        form.getInputByName("_.proxyHostname").setValueAttribute(LOCALHOST);
-        form.getInputByName("_.proxyPort").setValueAttribute(String.valueOf(port));
+        form.getInputByName("_.proxyHostname").setValue(LOCALHOST);
+        form.getInputByName("_.proxyPort").setValue(String.valueOf(port));
         jenkinsRule.submit(form);
         WavefrontMonitor.getInstance().setWavefrontSenderClosed(true);
         jobMetricPrefix = WavefrontManagement.get().getJobMetricsPrefixName();

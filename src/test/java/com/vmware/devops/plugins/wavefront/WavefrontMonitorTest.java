@@ -39,7 +39,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.jvnet.hudson.test.JenkinsRule;
 
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
+import org.htmlunit.html.HtmlForm;
 
 public class WavefrontMonitorTest {
     private static int MIN_PORT_NUMBER = 50000;
@@ -58,8 +58,8 @@ public class WavefrontMonitorTest {
         proxy = mockedProxy.getKey();
         port = mockedProxy.getValue();
         HtmlForm form = jenkinsRule.createWebClient().goTo("wavefront-plugin").getFormByName("config");
-        form.getInputByName("_.proxyHostname").setValueAttribute(LOCALHOST);
-        form.getInputByName("_.proxyPort").setValueAttribute(String.valueOf(port));
+        form.getInputByName("_.proxyHostname").setValue(LOCALHOST);
+        form.getInputByName("_.proxyPort").setValue(String.valueOf(port));
         jenkinsRule.submit(form);
         WavefrontMonitor.getInstance().setWavefrontSenderClosed(true);
         metricPrefix = WavefrontManagement.get().getMetricsPrefixName();

@@ -32,10 +32,10 @@ import org.junit.Test;
 import org.jvnet.hudson.test.JenkinsRule;
 import org.xml.sax.SAXException;
 
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
-import com.gargoylesoftware.htmlunit.html.HtmlNumberInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import org.htmlunit.html.HtmlForm;
+import org.htmlunit.html.HtmlNumberInput;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlTextInput;
 
 public class WavefrontManagementTest {
 
@@ -45,7 +45,7 @@ public class WavefrontManagementTest {
     @Test
     public void configRoundTrip() throws Exception {
         HtmlForm form = jenkinsRule.createWebClient().goTo("wavefront-plugin").getFormByName("config");
-        form.getInputByName("_.proxyHostname").setValueAttribute("xxx");
+        form.getInputByName("_.proxyHostname").setValue("xxx");
         jenkinsRule.submit(form);
         WavefrontManagement wm = WavefrontManagement.get();
         Assert.assertEquals("Unexpected proxy host value", "xxx", wm.getProxyHostname());
